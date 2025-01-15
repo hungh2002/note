@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mariadb:lts
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", '/usr/bin/mariadb --user=root --password=root --execute "SHOW DATABASES;"' ]
+      retries: 5
+    environment:
+      MARIADB_DATABASE: note
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - /mariadb_data:/var/lib/mysql
+    ports:
+      - 3307:3306
+
+  back-end:
+    image: hungh2002/note:back-end-latest
+    environment:
+      DATABASE: note
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_HOST: db
+      DB_PORT: 3306
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      retries: 3
+    ports:
+      - 10001:8080
+
+web-client:
+  image: hungh2002/note:web-client-latest
+  depends_on:
+    back_end:
+      condition: service_healthy
+      restart: true
+  ports:
+    - 10002:8080

@@ -1,0 +1,86 @@
+### VS Code ###
+.vscode/
+
+# Backend #
+
+note-backend/HELP.md
+note-backend/target/
+!note-backend/.mvn/wrapper/maven-wrapper.jar
+!note-backend/**/src/main/**/target/
+!note-backend/**/src/test/**/target/
+
+### STS ###
+note-backend/.apt_generated
+note-backend/.classpath
+note-backend/.factorypath
+note-backend/.project
+note-backend/.settings
+note-backend/.springBeans
+note-backend/.sts4-cache
+
+### IntelliJ IDEA ###
+note-backend/.idea
+note-backend/*.iws
+note-backend/*.iml
+note-backend/*.ipr
+
+### NetBeans ###
+note-backend/nbproject/private/
+note-backend/nbbuild/
+note-backend/dist/
+note-backend/nbdist/
+note-backend/.nb-gradle/
+note-backend/build/
+!note-backend/**/src/main/**/build/
+!note-backend/**/src/test/**/build/
+
+### VS Code ###
+note-backend/.vscode/
+
+# Backend #
+
+# Frontend #
+
+## See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+## dependencies
+note-web-client/node_modules
+note-web-client/.pnp
+note-web-client/.pnp.*
+note-web-client/.yarn/*
+!note-web-client/.yarn/patches
+!note-web-client/.yarn/plugins
+!note-web-client/.yarn/releases
+!note-web-client/.yarn/versions
+
+## testing
+note-web-client/coverage
+
+## next.js
+note-web-client/.next/
+note-web-client/out/
+
+## production
+note-web-client/build
+
+## misc
+note-web-client/.DS_Store
+note-web-client/*.pem
+
+## debug
+note-web-client/npm-debug.log*
+note-web-client/yarn-debug.log*
+note-web-client/yarn-error.log*
+note-web-client/.pnpm-debug.log*
+
+## env files (can opt-in for committing if needed)
+note-web-client/.env*
+
+## vercel
+note-web-client/.vercel
+
+## typescript
+note-web-client/*.tsbuildinfo
+note-web-client/next-env.d.ts
+
+# Frontend #

@@ -1,0 +1,47 @@
+name: note
+
+services:
+  db:
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: note
+    image: mariadb:lts
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", '/usr/bin/mariadb --usedckr_pat_7w4IFMkGxbSQaU65_EEYKqj0bMYr=root --password=root --execute "SHOW DATABASES;"' ]
+      retries: 5
+    volumes:
+      - /mariadb_data:/var/lib/mysql
+    ports:
+      - 3307:3306
+
+  back_end:
+    environment:
+      DATABASE: note
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_HOST: db
+      DB_PORT: 3306
+    build:
+      context: ./note-backend/
+      dockerfile: Dockerfile
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      retries: 3
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    ports:
+      - 8080:8080
+
+  web-client:
+    build:
+      context: ./note-web-client/
+      dockerfile: Dockerfile
+    depends_on:
+      back_end:
+        condition: service_healthy
+        restart: true
+    ports:
+      - 3000:3000
