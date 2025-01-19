@@ -3,15 +3,17 @@ server:
   servlet:
     context-path: /api
 
-spring:
-  application:
-    name: note-backend
+### Api documentation
+springdoc:
+  swagger-ui:
+    path: /docs
 
-  ### production
-  config:
-    activate:
-      on-profile: production
-  ### database configuration
+spring:
+  #### database configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   datasource:
     url: jdbc:mariadb://${DB_HOST:localhost}:${DB_PORT:3306}/${DATABASE:note}
     username: ${DB_USERNAME:root}

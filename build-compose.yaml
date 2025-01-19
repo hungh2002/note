@@ -8,7 +8,7 @@ services:
     image: mariadb:lts
     restart: always
     healthcheck:
-      test: [ "CMD-SHELL", '/usr/bin/mariadb --usedckr_pat_7w4IFMkGxbSQaU65_EEYKqj0bMYr=root --password=root --execute "SHOW DATABASES;"' ]
+      test: [ "CMD-SHELL", '/usr/bin/mariadb --user=root --password=root --execute "SHOW DATABASES;"' ]
       retries: 5
     volumes:
       - /mariadb_data:/var/lib/mysql
@@ -26,7 +26,7 @@ services:
       context: ./note-backend/
       dockerfile: Dockerfile
     healthcheck:
-      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8080/api/actuator/health | grep UP || exit 1"
       retries: 3
     depends_on:
       db:
